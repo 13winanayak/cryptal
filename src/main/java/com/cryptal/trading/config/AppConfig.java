@@ -1,5 +1,6 @@
 package com.cryptal.trading.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
@@ -11,7 +12,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 public class AppConfig {
-
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
