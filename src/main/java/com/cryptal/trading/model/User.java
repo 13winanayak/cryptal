@@ -74,4 +74,9 @@ public class User {
     public void setRole(USER_ROLE role) {
         this.role = role;
     }
+
+    public Long getId() {
+        return id;
+    }
+
 }
