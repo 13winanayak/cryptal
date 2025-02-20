@@ -6,7 +6,9 @@ import com.cryptal.trading.model.TwoFactorAuth;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cryptal.trading.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImp implements UserService{
 	
 	@Autowired 
