@@ -6,5 +6,5 @@ public enum OrderStatus {
     CANCELLED,
     PARTIALLY_FILLED,
     ERROR,
-    SECCESS
+    SUCCESS, SECCESS
 }
