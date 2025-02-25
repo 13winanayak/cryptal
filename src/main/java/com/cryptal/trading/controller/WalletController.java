@@ -4,6 +4,7 @@ import com.cryptal.trading.model.Order;
 import com.cryptal.trading.model.User;
 import com.cryptal.trading.model.Wallet;
 import com.cryptal.trading.model.WalletTransaction;
+import com.cryptal.trading.service.OrderService;
 import com.cryptal.trading.service.UserService;
 import com.cryptal.trading.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class WalletController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/api/wallet")
     public ResponseEntity<Wallet> getUserWallet(@RequestHeader("Authorization") String jwt) throws Exception {

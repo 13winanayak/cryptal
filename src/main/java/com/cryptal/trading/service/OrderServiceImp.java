@@ -2,10 +2,7 @@ package com.cryptal.trading.service;
 
 import com.cryptal.trading.domain.OrderStatus;
 import com.cryptal.trading.domain.OrderType;
-import com.cryptal.trading.model.Coin;
-import com.cryptal.trading.model.Order;
-import com.cryptal.trading.model.OrderItem;
-import com.cryptal.trading.model.User;
+import com.cryptal.trading.model.*;
 import com.cryptal.trading.repository.OrderItemRepository;
 import com.cryptal.trading.repository.OrderRepository;
 import jakarta.transaction.Transactional;
