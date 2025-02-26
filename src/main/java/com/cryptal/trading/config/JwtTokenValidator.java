@@ -23,37 +23,37 @@ import javax.crypto.SecretKey;
 
 public class JwtTokenValidator extends OncePerRequestFilter {
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String jwt = request.getHeader(JwtConstant.JWT_HEADER);
 
-        if (jwt!=null) {
+        if(jwt!=null) {
             jwt=jwt.substring(7);
 
 
             try {
-                SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRETE_KEY.getBytes(StandardCharsets.UTF_8));
-                Claims claims = Jwts.parserBuilder()
-                        .setSigningKey(key)
-                        .build()
-                        .parseClaimsJws(jwt).getBody();
 
-                
+                SecretKey key= Keys.hmacShaKeyFor(JwtConstant.SECRETE_KEY.getBytes());
+
+                Claims claims=Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+
                 String email=String.valueOf(claims.get("email"));
-                String authorities=String.valueOf(claims.get("authorities"));
-                List<GrantedAuthority> authoritiesList = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
 
-                Authentication auth=new UsernamePasswordAuthenticationToken(
-                        email,
-                        null,
-                        authoritiesList
-                );
-                SecurityContextHolder.getContext().setAuthentication (auth);
+                String authorities=String.valueOf(claims.get("authorities"));
+
+                System.out.println("authorities -------- "+authorities);
+
+                List<GrantedAuthority> auths=AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
+                Authentication athentication=new UsernamePasswordAuthenticationToken(email,null, auths);
+
+                SecurityContextHolder.getContext().setAuthentication(athentication);
 
             } catch (Exception e) {
-                throw new RuntimeException("invalid token.....");
+                throw new RuntimeException("invalid token...");
             }
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
+
     }
+
 }
