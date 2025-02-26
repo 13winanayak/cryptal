@@ -1,31 +1,27 @@
 package com.cryptal.trading.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class OrderItem {
+public class TreadingHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private double quantity;
+    private double sellingPrice;
 
-    @ManyToOne
+    private double buyingPrice;
+
+    @Embedded
     private Coin coin;
 
-    private double buyPrice;
-
-    private double sellPrice;
-
-    @JsonIgnore
-    @OneToOne
-    private Order order;
+    @ManyToOne
+    private User user;
 }
