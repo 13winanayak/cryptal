@@ -12,29 +12,37 @@ import java.util.List;
 @Service
 public class AssetServiceImp implements AssetService{
 
-    @Autowired
-    private AssetRepository assetRepository;
+    private final AssetRepository assetRepository;
+
+    public AssetServiceImp(AssetRepository assetRepository) {
+        this.assetRepository = assetRepository;
+    }
+
     @Override
     public Asset createAsset(User user, Coin coin, double quantity) {
         Asset asset = new Asset();
-        asset.setUser(user);
-        asset.setCoin(coin);
+
         asset.setQuantity(quantity);
         asset.setBuyPrice(coin.getCurrentPrice());
+        asset.setCoin(coin);
+        asset.setUser(user);
 
         return assetRepository.save(asset);
     }
 
-    @Override
-    public Asset getAssetById(Long assetId) throws Exception {
+
+//    public Asset buyAsset(User user, Coin coin, Long quantity) {
+//        return createAsset(user,coin,quantity);
+//    }
+
+    public Asset getAssetById(Long assetId) {
         return assetRepository.findById(assetId)
-                .orElseThrow(() -> new Exception("asset not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Asset not found"));
     }
 
-
     @Override
-    public Asset getAssetByUserIdAndId(Long userId, Long assetId) {
-        return null;
+    public Asset getAssetByUserAndId(Long userId, Long assetId) {
+        return assetRepository.findByIdAndUserId(assetId,userId);
     }
 
     @Override
@@ -42,20 +50,26 @@ public class AssetServiceImp implements AssetService{
         return assetRepository.findByUserId(userId);
     }
 
+
+
     @Override
     public Asset updateAsset(Long assetId, double quantity) throws Exception {
-        Asset oldAsset = getAssetById(assetId);
-        oldAsset.setQuantity(quantity + oldAsset.getQuantity());
+
+        Asset oldAsset=getAssetById(assetId);
+        if(oldAsset==null){
+            throw new Exception("Asset not found...");
+        }
+        oldAsset.setQuantity(quantity+ oldAsset.getQuantity());
+
         return assetRepository.save(oldAsset);
     }
 
-
     @Override
-    public Asset findAssetByUserIdAndCoinId(Long userId, String coinId) {
-        return assetRepository.findByUserIdAndCoinId(userId, coinId);
+    public Asset findAssetByUserIdAndCoinId(Long userId, String coinId) throws Exception {
+        return assetRepository.findByUserIdAndCoinId(userId,coinId);
     }
 
-    @Override
+
     public void deleteAsset(Long assetId) {
         assetRepository.deleteById(assetId);
     }

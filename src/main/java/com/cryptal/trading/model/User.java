@@ -79,4 +79,6 @@ public class User {
         return id;
     }
 
+    public void setVerified(boolean b) {
+    }
 }

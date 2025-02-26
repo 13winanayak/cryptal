@@ -2,15 +2,27 @@ package com.cryptal.trading.service;
 
 import com.cryptal.trading.domain.VERIFICATION_TYPE;
 import com.cryptal.trading.model.User;
+import com.cryptal.trading.exception.UserException;
 
 public interface UserService {
 
-    public User findUserProfileByJwt(String jwt) throws Exception;
-    public User findUserByEmail(String email) throws Exception;
-    public User findUserById(Long userId)throws Exception;;
+    public User findUserProfileByJwt(String jwt) throws UserException;
 
-    public User enableTwoFactorAuthentication(VERIFICATION_TYPE verification_type, String sendTo,  User user);
+    public User findUserByEmail(String email) throws UserException;
+
+    public User findUserById(Long userId) throws UserException;
+
+    public User verifyUser(User user) throws UserException;
+
+    public User enabledTwoFactorAuthentication(VERIFICATION_TYPE verificationType,
+                                               String sendTo, User user) throws UserException;
+
+//	public List<User> getPenddingRestaurantOwner();
 
     User updatePassword(User user, String newPassword);
+
+    void sendUpdatePasswordOtp(String email,String otp);
+
+//	void sendPasswordResetEmail(User user);
 
 }

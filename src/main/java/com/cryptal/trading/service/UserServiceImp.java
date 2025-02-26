@@ -6,65 +6,82 @@ import com.cryptal.trading.model.TwoFactorAuth;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cryptal.trading.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.cryptal.trading.exception.UserException;
 
 @Service
 public class UserServiceImp implements UserService{
-	
-	@Autowired 
+
+
+	@Autowired
 	private UserRepository userRepository;
 
-	@Override
-	public User findUserProfileByJwt(String jwt) throws Exception {
-		String email = jwtProvider.getEmailFromToken(jwt);
-		User user = userRepository.findByEmail(email);
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-		if (user == null) {
-		    throw new Exception("user not found");
-		}
-
-		return user;
-
-	}
 
 	@Override
-	public User findUserByEmail(String email) throws Exception {
+	public User findUserProfileByJwt(String jwt) throws UserException {
+		String email= jwtProvider.getEmailFromJwtToken(jwt);
+
+
 		User user = userRepository.findByEmail(email);
 
-		if (user == null) {
-		    throw new Exception("user not found");
+		if(user==null) {
+			throw new UserException("user not exist with email "+email);
 		}
-
 		return user;
 	}
 
 	@Override
-	public User findUserById(Long userId) throws Exception {
-		Optional<User> user = userRepository.findById(userId);
-		if (user.isEmpty()) {
-		    throw new Exception("user not found");
+	public User findUserByEmail(String username) throws UserException {
+
+		User user=userRepository.findByEmail(username);
+
+		if(user!=null) {
+
+			return user;
 		}
-		return user.get();
+
+		throw new UserException("user not exist with username "+username);
 	}
-	
-	
 
 	@Override
-	public User enableTwoFactorAuthentication(VERIFICATION_TYPE verification_type, String sendTo, User user) {
-		TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
+	public User findUserById(Long userId) throws UserException {
+		Optional<User> opt = userRepository.findById(userId);
+
+		if(opt.isEmpty()) {
+			throw new UserException("user not found with id "+userId);
+		}
+		return opt.get();
+	}
+
+	@Override
+	public User verifyUser(User user) throws UserException {
+		user.setVerified(true);
+		return userRepository.save(user);
+	}
+
+	@Override
+	public User enabledTwoFactorAuthentication(
+			VERIFICATION_TYPE verificationType, String sendTo,User user) throws UserException {
+		TwoFactorAuth twoFactorAuth=new TwoFactorAuth();
 		twoFactorAuth.setEnabled(true);
-		twoFactorAuth.setSendto(verification_type);
+		twoFactorAuth.setSendTo(verificationType);
 
 		user.setTwoFactorAuth(twoFactorAuth);
-
 		return userRepository.save(user);
-
 	}
 
 	@Override
 	public User updatePassword(User user, String newPassword) {
-		user.setPassword(newPassword);
+		user.setPassword(passwordEncoder.encode(newPassword));
 		return userRepository.save(user);
+	}
+
+	@Override
+	public void sendUpdatePasswordOtp(String email, String otp) {
 
 	}
 
