@@ -13,35 +13,46 @@ import java.util.Optional;
 public class ForgetPasswordServiceImp implements ForgetPasswordService{
 
     @Autowired
-    private ForgetpasswordRepository forgetpasswordRepository;
-    
+    private ForgetpasswordRepository forgotPasswordRepository;
+
     @Override
-    public ForgetPasswordToken createToken(User user, String id, String otp, VERIFICATION_TYPE verificationType, String sendTo) {
-        ForgetPasswordToken token = new ForgetPasswordToken();
-        token.setUser(user);
-        token.setSendTo(sendTo);
-        token.setVerificationType(verificationType);
-        token.setOtp(otp);
-        token.setId(id);
+    public ForgetPasswordToken createToken(User user,
+                                           String id,
+                                           String otp,
+                                           VERIFICATION_TYPE verificationType,
+                                           String sendTo
+    ) {
+        ForgetPasswordToken forgotPasswordToken=new ForgetPasswordToken();
+        forgotPasswordToken.setUser(user);
+        forgotPasswordToken.setId(id);
+        forgotPasswordToken.setOtp(otp);
+        forgotPasswordToken.setVerificationType(verificationType);
+        forgotPasswordToken.setSendTo(sendTo);
 
-        return forgetpasswordRepository.save(token);
-
+        return forgotPasswordRepository.save(forgotPasswordToken);
     }
 
     @Override
     public ForgetPasswordToken findById(String id) {
-        Optional<ForgetPasswordToken> token = forgetpasswordRepository.findById(id);
-        return token.orElse(null);
+        Optional<ForgetPasswordToken> opt=forgotPasswordRepository.findById(id);
+        return opt.orElse(null);
     }
 
     @Override
     public ForgetPasswordToken findByUser(Long userId) {
-        return forgetpasswordRepository.findByUserId(userId);
+        return forgotPasswordRepository.findByUserId(userId);
     }
 
     @Override
     public void deleteToken(ForgetPasswordToken token) {
-        forgetpasswordRepository.delete(token);
+
+        forgotPasswordRepository.delete(token);
+
+    }
+
+    @Override
+    public boolean verifyToken(ForgetPasswordToken token, String otp) {
+        return token.getOtp().equals(otp);
     }
 
 }

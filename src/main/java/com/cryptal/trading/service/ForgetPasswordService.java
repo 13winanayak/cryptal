@@ -5,10 +5,8 @@ import com.cryptal.trading.domain.VERIFICATION_TYPE;
 import com.cryptal.trading.model.User;
 
 public interface ForgetPasswordService {
-    ForgetPasswordToken createToken(User user,
-                                    String id, String otp,
-                                    VERIFICATION_TYPE verificationType,
-                                    String sendTo);
+    ForgetPasswordToken createToken(User user, String id, String otp,
+                                    VERIFICATION_TYPE verificationType,String sendTo);
 
     ForgetPasswordToken findById(String id);
 
@@ -16,4 +14,5 @@ public interface ForgetPasswordService {
 
     void deleteToken(ForgetPasswordToken token);
 
+    boolean verifyToken(ForgetPasswordToken token,String otp);
 }

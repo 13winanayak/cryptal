@@ -6,14 +6,13 @@ import com.cryptal.trading.model.Wallet;
 
 public interface WalletService {
 
-    Wallet getUserWallet(User user);
+    Wallet getUserWallet(User user) throws WalletException;
 
-    Wallet addBalance(Wallet wallet, Long money);
+    public Wallet addBalanceToWallet(Wallet wallet, Long money) throws WalletException;
 
-    Wallet findWalletById(Long id) throws Exception;
+    public Wallet findWalletById(Long id) throws WalletException;
 
-    Wallet walletToWalletTransfer(User sender, Wallet receiverWallet, Long amount) throws Exception;
+    public Wallet walletToWalletTransfer(User sender,Wallet receiverWallet, Long amount) throws WalletException;
 
-    Wallet payOrderPayment(Order order, User user) throws Exception;
-
+    public Wallet payOrderPayment(Order order, User user) throws WalletException;
 }

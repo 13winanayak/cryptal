@@ -11,22 +11,21 @@ import java.util.UUID;
 
 @Service
 public class TwoFactorOtpServiceImp implements TwoFactorOtpService{
-
     @Autowired
     private TwoFactorOtpRepository twoFactorOtpRepository;
-    
+
     @Override
     public TwoFactorOtp createTwoFactorOtp(User user, String otp, String jwt) {
         UUID uuid = UUID.randomUUID();
         String id = uuid.toString();
 
-        TwoFactorOtp twoFactorOtp = new TwoFactorOtp();
-        twoFactorOtp.setOtp(otp);
-        twoFactorOtp.setJwt(jwt);
-        twoFactorOtp.setId(id);
-        twoFactorOtp.setUser(user);
+        TwoFactorOtp twoFactorOTP=new TwoFactorOtp();
+        twoFactorOTP.setId(id);
+        twoFactorOTP.setUser(user);
+        twoFactorOTP.setOtp(otp);
+        twoFactorOTP.setJwt(jwt);
+        return twoFactorOtpRepository.save(twoFactorOTP);
 
-        return twoFactorOtpRepository.save(twoFactorOtp);
     }
 
     @Override
@@ -36,8 +35,8 @@ public class TwoFactorOtpServiceImp implements TwoFactorOtpService{
 
     @Override
     public TwoFactorOtp findById(String id) {
-        Optional<TwoFactorOtp> otp=twoFactorOtpRepository.findById(id);
-        return otp.orElse( null);
+        Optional<TwoFactorOtp> twoFactorOtp=twoFactorOtpRepository.findById(id);
+        return twoFactorOtp.orElse(null);
     }
 
     @Override
@@ -46,7 +45,10 @@ public class TwoFactorOtpServiceImp implements TwoFactorOtpService{
     }
 
     @Override
-    public void deleteTwoFactorOtp(TwoFactorOtp twoFactorOtp) {
-                twoFactorOtpRepository.delete(twoFactorOtp);
+    public void deleteTwoFactorOtp(TwoFactorOtp twoFactorOTP) {
+        twoFactorOtpRepository.delete(twoFactorOTP);
     }
+
 }
+
+
