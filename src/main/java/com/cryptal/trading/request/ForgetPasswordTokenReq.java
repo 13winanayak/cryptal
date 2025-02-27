@@ -23,8 +23,15 @@ public class ForgetPasswordTokenReq {
         return sendTo;
     }
 
+    public VERIFICATION_TYPE getVerification_type() {
+        return verification_type;
+    }
+
     public void setSendTo(String sendTo) {
         this.sendTo = sendTo;
     }
 
+    public void setVerification_type(VERIFICATION_TYPE verification_type) {
+        this.verification_type = verification_type;
+    }
 }

@@ -5,9 +5,11 @@ import com.cryptal.trading.model.User;
 import com.cryptal.trading.model.Watchlist;
 import com.cryptal.trading.repository.WatchlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class WatchlistServiceImpl implements WatchlistService{
 
     @Autowired

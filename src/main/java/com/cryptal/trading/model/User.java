@@ -37,4 +37,84 @@ public class User {
     private String picture;
 
     private USER_ROLE role= USER_ROLE.ROLE_USER;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public TwoFactorAuth getTwoFactorAuth() {
+        return twoFactorAuth;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public USER_ROLE getRole() {
+        return role;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
+    public void setVerified(boolean verified) {
+        isVerified = verified;
+    }
+
+    public void setTwoFactorAuth(TwoFactorAuth twoFactorAuth) {
+        this.twoFactorAuth = twoFactorAuth;
+    }
+
+    public void setRole(USER_ROLE role) {
+        this.role = role;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 }

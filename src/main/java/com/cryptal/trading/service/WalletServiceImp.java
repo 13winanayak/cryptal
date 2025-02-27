@@ -1,10 +1,13 @@
 package com.cryptal.trading.service;
 
 import com.cryptal.trading.domain.OrderType;
+import com.cryptal.trading.exception.WalletException;
 import com.cryptal.trading.model.Order;
 import com.cryptal.trading.model.User;
 import com.cryptal.trading.model.Wallet;
+import com.cryptal.trading.model.WalletTransaction;
 import com.cryptal.trading.repository.WalletRepository;
+import com.cryptal.trading.repository.WalletTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -17,7 +17,7 @@ import com.cryptal.trading.request.PromptBody;
 import java.util.List;
 
 @RestController
-@RequestMapping("/coins")
+@RequestMapping("/chat")
 public class ChatBotController {
     @Autowired
     private CoinService coinService;

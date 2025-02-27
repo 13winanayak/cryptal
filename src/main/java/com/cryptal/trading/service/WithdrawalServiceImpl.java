@@ -1,14 +1,17 @@
 package com.cryptal.trading.service;
 
+import com.cryptal.trading.domain.WithdrawalStatus;
 import com.cryptal.trading.model.User;
 import com.cryptal.trading.model.Withdrawal;
 import com.cryptal.trading.repository.WithdrawalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class WithdrawalServiceImpl implements WithdrawalService{
 
     @Autowired

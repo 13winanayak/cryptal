@@ -6,9 +6,11 @@ import com.cryptal.trading.model.VerificationCode;
 import com.cryptal.trading.repository.VerificationRepository;
 import com.cryptal.trading.utills.OtpUtills;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class VerificationServiceImpl implements VerificationService{
 
     @Autowired

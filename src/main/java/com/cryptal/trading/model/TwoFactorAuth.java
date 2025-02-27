@@ -10,4 +10,20 @@ public class TwoFactorAuth {
 
     private boolean isEnabled = false;
     private VERIFICATION_TYPE sendTo;
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public VERIFICATION_TYPE getSendTo() {
+        return sendTo;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public void setSendTo(VERIFICATION_TYPE sendTo) {
+        this.sendTo = sendTo;
+    }
 }

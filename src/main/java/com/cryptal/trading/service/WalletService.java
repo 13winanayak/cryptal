@@ -1,5 +1,6 @@
 package com.cryptal.trading.service;
 
+import com.cryptal.trading.exception.WalletException;
 import com.cryptal.trading.model.Order;
 import com.cryptal.trading.model.User;
 import com.cryptal.trading.model.Wallet;
