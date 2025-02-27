@@ -6,15 +6,14 @@ import com.cryptal.trading.service.AssetService;
 import com.cryptal.trading.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 import com.cryptal.trading.exception.UserException;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/assets")
 public class AssetController {
-
     private final AssetService assetService;
     @Autowired
     private UserService userService;
@@ -34,7 +33,7 @@ public class AssetController {
     public ResponseEntity<Asset> getAssetByUserIdAndCoinId(
             @PathVariable String coinId,
             @RequestHeader("Authorization") String jwt
-    ) throws Exception {
+    ) throws Exception, UserException {
 
         User user=userService.findUserProfileByJwt(jwt);
         Asset asset = assetService.findAssetByUserIdAndCoinId(user.getId(), coinId);
