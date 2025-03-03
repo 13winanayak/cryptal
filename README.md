@@ -4,6 +4,9 @@ Overview
 
 Cryptal is an AI-powered trading platform that allows users to practice trading with real money. It integrates real-time market data, robust authentication, and secure payment gateways, offering a seamless and interactive trading experience.
 
+<hr>
+<hr>
+
 Features
 
 AI-Powered Trading Insights
@@ -20,6 +23,9 @@ Email Notifications with Java Mail Sender
 
 Tech Stack
 
+<hr>
+<hr>
+
 Backend:
 
 Spring Boot - Framework for building robust backend services
@@ -29,6 +35,9 @@ MySQL - Relational database for storing user data and transactions
 Spring Security - Securing authentication and authorization
 
 Java Mail Sender - Sending transactional emails
+
+<hr>
+<hr>
 
 Frontend:
 
@@ -43,6 +52,9 @@ Axios - Handling API requests
 React-Router-Dom - Client-side routing
 
 Shadcn UI - UI components for a modern design
+
+<hr>
+<hr>
 
 Authentication:
 
